@@ -2,13 +2,15 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import Lineup from "./model/lineup.js";
+import { configDotenv } from "dotenv";
+
+configDotenv()
 
 const app = express();
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 
 
-const dbURI = "mongodb+srv://oluwaseyi:oluwaseyi2002@lineup-builder-db.dtl5h.mongodb.net/lineup-builder?retryWrites=true&w=majority&appName=lineup-builder-db";
-
+const dbURI = process.env.DB_URI
 mongoose.connect(dbURI)
   .then(() => {
     console.log("Connected to the database");
