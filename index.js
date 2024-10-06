@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 import Lineup from "./model/lineup.js";
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = 5001;
+
 
 const dbURI = "mongodb+srv://oluwaseyi:oluwaseyi2002@lineup-builder-db.dtl5h.mongodb.net/lineup-builder?retryWrites=true&w=majority&appName=lineup-builder-db";
 
