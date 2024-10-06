@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 5001;
 
 
 const dbURI = process.env.DB_URI
+console.log(dbURI);
+
 mongoose.connect(dbURI)
   .then(() => {
     console.log("Connected to the database");
