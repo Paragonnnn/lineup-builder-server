@@ -7,7 +7,8 @@ import { configDotenv } from "dotenv";
 configDotenv()
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3000;
+
 
 
 const dbURI = process.env.DB_URI
@@ -47,26 +48,26 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.get("/add-lineup", async (req, res) => {
-  const lineup = new Lineup({
-    team: 'Liverpool',
-    players: ['Salah', 'Mane', 'Firmino'],
-    formation: '4-3-3',
-    positions: {
-      'Salah': 'RW',
-      'Mane': 'LW',
-      'Firmino': 'CF'
-    }
-  });
+// app.get("/add-lineup", async (req, res) => {
+//   const lineup = new Lineup({
+//     team: 'Liverpool',
+//     players: ['Salah', 'Mane', 'Firmino'],
+//     formation: '4-3-3',
+//     positions: {
+//       'Salah': 'RW',
+//       'Mane': 'LW',
+//       'Firmino': 'CF'
+//     }
+//   });
 
-  try {
-    const result = await lineup.save();
-    res.send(result);
-  } catch (err) {
-    console.error("Error saving lineup:", err);
-    res.status(500).send("Error saving lineup");
-  }
-});
+//   try {
+//     const result = await lineup.save();
+//     res.send(result);
+//   } catch (err) {
+//     console.error("Error saving lineup:", err);
+//     res.status(500).send("Error saving lineup");
+//   }
+// });
 
 app.get("/team/", async (req, res) => {
   const { id } = req.query;
