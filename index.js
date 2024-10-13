@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 3000;
 
 
 const dbURI = process.env.DB_URI
-console.log(dbURI);
 
 mongoose.connect(dbURI)
   .then(() => {
@@ -48,26 +47,6 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-// app.get("/add-lineup", async (req, res) => {
-//   const lineup = new Lineup({
-//     team: 'Liverpool',
-//     players: ['Salah', 'Mane', 'Firmino'],
-//     formation: '4-3-3',
-//     positions: {
-//       'Salah': 'RW',
-//       'Mane': 'LW',
-//       'Firmino': 'CF'
-//     }
-//   });
-
-//   try {
-//     const result = await lineup.save();
-//     res.send(result);
-//   } catch (err) {
-//     console.error("Error saving lineup:", err);
-//     res.status(500).send("Error saving lineup");
-//   }
-// });
 
 app.get("/team/", async (req, res) => {
   const { id } = req.query;
@@ -81,7 +60,6 @@ app.get("/search", async (req, res) => {
   const { p } = req.query;
   if (!p) return res.status(400).send("Missing search term");
 
-  console.log("Searching for:", p);
   const results = await searchTeamsAndPlayers(p);
   res.send(results);
 });
@@ -108,5 +86,19 @@ app.get('/get-lineup/:id', async (req, res) => {
   } catch (error) {
     console.error("Error fetching lineup:", error);
     res.status(500).send("Error fetching lineup");
+  }
+});
+
+app.delete('/delete-lineup/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedLineup = await Lineup.findByIdAndDelete(id);
+    if (!deletedLineup) return res.status(404).send("Lineup not found");
+    
+    res.send("Lineup deleted successfully");
+  } catch (error) {
+    console.error("Error deleting lineup:", error);
+    res.status(500).send("Error deleting lineup");
   }
 });
