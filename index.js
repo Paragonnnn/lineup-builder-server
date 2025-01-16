@@ -47,6 +47,11 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
+app.get("/line-ups", async (req,res) => {
+  const lineUps = await Lineup.find();
+  res.json(lineUps);
+})
+
 
 app.get("/team/", async (req, res) => {
   const { id } = req.query;
